@@ -11,8 +11,8 @@
     "profiles": [
       { "network": "github", "username": "Ansd24", "url": "https://github.com/Ansd24" },
       { "network": "linkedin", "username": "Ayaan Sayyad", "url": "www.linkedin.com/in/ayaan-sayyad-11291825a" },
-      { "network": "twitter", "username": "mollymal", "url": "" },
-      { "network": "instagram", "username": "molly", "url": "" }
+      { "network": "twitter", "username": "", "url": "" },
+      { "network": "instagram", "username": "", "url": "" }
     ]
   },
   "interests": [
