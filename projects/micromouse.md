@@ -26,7 +26,7 @@ Some of the Tasks were:
 Designed and implemented a multi-office enterprise network in Tetcos NetSim based on the provided business scenario. This involved creating LAN and WAN topologies for Cape Town, Singapore, Buenos Aires, and the NOC while configuring switches, routers, servers, and user devices. The task required configuring applications such as MS Teams, Zoom, OneDrive, email, and web browsing, then simulating realistic traffic flows and documenting all design decisions and performance settings.
 
 <div class="text-center p-4">
-  <img width="200px" src="../img/micromouse/micromouse-robot.png" class="img-thumbnail" >
+  <img width="200px" src=""C:\Users\Ayaan\Desktop\portfolio\GTHb\Ansd24.github.io\img\micromouse\Network design.png"" class="img-thumbnail" >
 </div>
 
 ## Subnetting and IP Addressing
