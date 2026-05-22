@@ -2,14 +2,15 @@
 layout: project
 type: project
 image: img/micromouse/micromouse-square.jpg
-title: "Micromouse"
-date: 2015
+title: "Network design"
+date: Sem 1
 published: true
 labels:
-  - Robotics
-  - Arduino
-  - C++
-summary: "My team developed a robotic mouse that won first place in the 2015 UH Micromouse competition."
+  - Networking
+  - Subnetting
+  - Topology design
+  - Traffic Analysis
+summary: "Designed and simulated a multi-office enterprise network in Tetcos NetSim, focusing on subnetting, topology design, traffic analysis, and network performance optimisation across multiple global office locations."
 ---
 
 <div class="text-center p-4">
@@ -18,9 +19,26 @@ summary: "My team developed a robotic mouse that won first place in the 2015 UH 
   <img width="200px" src="../img/micromouse/micromouse-circuit.png" class="img-thumbnail" >
 </div>
 
-Micromouse is an event where small robot “mice” solve a 16 x 16 maze.  Events are held worldwide.  The maze is made up of a 16 by 16 gird of cells, each 180 mm square with walls 50 mm high.  The mice are completely autonomous robots that must find their way from a predetermined starting position to the central area of the maze unaided.  The mouse will need to keep track of where it is, discover walls as it explores, map out the maze and detect when it has reached the center.  having reached the center, the mouse will typically perform additional searches of the maze until it has found the most optimal route from the start to the center.  Once the most optimal route has been determined, the mouse will run that route in the shortest possible time.
+Some of the Tasks were:
+Network Design and Simulation
 
-For this project, I was the lead programmer who was responsible for programming the various capabilities of the mouse.  I started by programming the basics, such as sensor polling and motor actuation using interrupts.  From there, I then programmed the basic PD controls for the motors of the mouse.  The PD control the drive so that the mouse would stay centered while traversing the maze and keep the mouse driving straight.  I also programmed basic algorithms used to solve the maze such as a right wall hugger and a left wall hugger algorithm.  From there I worked on a flood-fill algorithm to help the mouse track where it is in the maze, and to map the route it takes.  We finished with the fastest mouse who finished the maze within our college.
+Designed and implemented a multi-office enterprise network in Tetcos NetSim based on the provided business scenario. This involved creating LAN and WAN topologies for Cape Town, Singapore, Buenos Aires, and the NOC while configuring switches, routers, servers, and user devices. The task required configuring applications such as MS Teams, Zoom, OneDrive, email, and web browsing, then simulating realistic traffic flows and documenting all design decisions and performance settings.
+
+Subnetting and IP Addressing
+
+Created subnetting schemes for LAN, WAN, and MAN connections using private IP address ranges. The task required calculating network addresses, broadcast addresses, usable host ranges, and assigning IP addresses to devices within the topology. To solve this task, subnetting techniques and VLSM principles were applied to ensure efficient address allocation and proper communication between offices.
+
+Network Performance Analysis
+
+Analysed the behaviour and performance of the simulated network under multiple scenarios. This involved generating graphs, collecting simulation statistics, forming hypotheses, and comparing expected outcomes against actual results. The task required identifying congestion points, evaluating traffic behaviour, and explaining how network conditions affected overall performance.
+
+Advanced Performance Metrics Investigation
+
+Investigated specific Quality of Service (QoS) and performance metrics including backbone link utilisation, OneDrive file download times, web server response times, MS Teams/Zoom behaviour, and Ethernet delays. Solving this task required configuring detailed simulation statistics in NetSim, interpreting graphical outputs, and identifying bottlenecks or inefficiencies affecting user experience and communication quality.
+
+Network Optimisation and Improvements
+
+Evaluated the weaknesses identified during testing and proposed improvements to the network design. This included optimising bandwidth allocation, reducing bottlenecks, improving routing efficiency, and enhancing overall QoS. The task required comparing baseline and improved simulation results to justify the effectiveness of the implemented changes
 
 Here is some code that illustrates how we read values from the line sensors:
 
@@ -36,4 +54,4 @@ byte ADCRead(byte ch)
 }
 ```
 
-You can learn more at the [UH Micromouse News Announcement](https://manoa.hawaii.edu/news/article.php?aId=2857).
+
