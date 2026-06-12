@@ -1,12 +1,12 @@
-<div style="background-color: var(--bs-white)" class="bg-gradient py-3" id="essays">
+<div style="background-color: var(--tf-page-bg-color)" class="bg-gradient py-3 reveal-section" id="essays">
   <div class="container">
     <div class="row mb-3">
       <div class="col-md-6">
-        <h1 class="display-4 text-start">Essays</h1>
+        <h1 class="display-4 text-start split-heading">Essays</h1>
       </div>
     </div>
 
-    <div class="row g-3">
+    <div class="row g-3 reveal-stagger">
       {% assign essay_pages = site.pages | where: "type", "essay" | sort: "date" | reverse %}
       {% for page in essay_pages %}
         {% unless page.draft %}

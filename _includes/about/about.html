@@ -1,22 +1,23 @@
-<div style="background-color: var(--tf-page-bg-color)" class="bg-gradient py-3">
+<div id="hero" style="background-color: var(--tf-page-bg-color)" class="bg-gradient hero-section">
+  <div class="hero-glow" aria-hidden="true"></div>
   <div class="container">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col-lg-4">
-        <img width="300px" src="{{ site.data.bio.basics.picture }}" class="d-block mx-auto rounded-circle">
+        <img width="300px" src="{{ site.data.bio.basics.picture }}" class="d-block mx-auto rounded-circle hero-image">
       </div>
       <div class="col-lg-8">
-        <h1 class="display-4 text-center">{{ site.data.bio.basics.name }}</h1>
-        <p class="lead text-center">{{ site.data.bio.basics.label }}</p>
-        <p class="lead">{{ site.data.bio.basics.summary }}</p>
-        <hr class="my-4">
-        <p class="lead m-0">
+        <h1 class="display-4 text-center hero-title hero-line">{{ site.data.bio.basics.name }}</h1>
+        <p class="lead text-center hero-line">{{ site.data.bio.basics.label }}</p>
+        <p class="lead hero-line">{{ site.data.bio.basics.summary }}</p>
+        <hr class="my-4 hero-line">
+        <p class="lead m-0 hero-line">
           Interests:
           {% for interest in site.data.bio.interests %}
-          {{ interest.name }}{% if forloop.last != true %}, {% endif %}
+          <span class="interest-pill">{{ interest.name }}{% if forloop.last != true %},{% endif %}</span>
           {% endfor %}
         </p>
-        <hr class="my-4">
-        <div class="row">
+        <hr class="my-4 hero-line">
+        <div class="row hero-line">
 
           {% if site.data.bio.basics.website %}
             {% capture url %}{{ site.data.bio.basics.website }}{% endcapture %}
@@ -43,5 +44,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <span class="scroll-indicator__mouse"></span>
   </div>
 </div>

@@ -26,13 +26,13 @@ summary: "Conducted a physical security audit of university computing facilities
     <div class="row g-3 mt-2">
       <div class="col-md-6">
         <figure class="text-center mb-0">
-          <img width="100%" src="../img/All/Checklist.jpg" class="img-thumbnail rounded">
+          <img width="100%" src="../img/All/Checklist.jpg" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Audit Checklist</figcaption>
         </figure>
       </div>
       <div class="col-md-6">
         <figure class="text-center mb-0">
-          <img width="100%" src="../img/All/Gap.png" class="img-thumbnail rounded">
+          <img width="100%" src="../img/All/Gap.png" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Gap Analysis</figcaption>
         </figure>
       </div>

@@ -1,0 +1,261 @@
+/* Cinematic enhancements: dark Apple-inspired tone, smooth scroll, scroll-driven motion. */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --tf-page-bg-color: #0a0a0c;
+  --tf-projects-bg-color: #0e0e12;
+  --tf-footer-bg-color: #0a0a0c;
+  --bs-body-bg: #0a0a0c;
+  --bs-card-bg: #15151a;
+  --bs-border-color: #2a2a30;
+  --cine-accent: #8ab4ff;
+  --cine-accent-glow: rgba(138, 180, 255, 0.35);
+  --cine-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html,
+body {
+  background-color: var(--tf-page-bg-color);
+}
+
+body {
+  font-family: "Inter", var(--bs-font-sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Lenis hands scroll behaviour over to JS */
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+/* ---------------------------------------------------------- */
+/* Navbar                                                       */
+/* ---------------------------------------------------------- */
+.site-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background-color: rgba(10, 10, 12, 0.35) !important;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  transition: background-color 0.4s var(--cine-ease), box-shadow 0.4s var(--cine-ease), border-color 0.4s var(--cine-ease);
+}
+
+.site-navbar.is-scrolled {
+  background-color: rgba(10, 10, 12, 0.78) !important;
+  box-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.site-navbar .nav-link {
+  position: relative;
+  transition: color 0.3s var(--cine-ease);
+}
+
+.site-navbar .nav-link.is-active {
+  color: #ffffff !important;
+}
+
+.site-navbar .nav-link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: -2px;
+  height: 2px;
+  background: var(--cine-accent);
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------- */
+/* Hero                                                         */
+/* ---------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-glow {
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 28% 22%, var(--cine-accent-glow), transparent 55%),
+    radial-gradient(circle at 78% 78%, rgba(170, 120, 255, 0.16), transparent 55%);
+  will-change: transform;
+}
+
+.hero-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.hero-line {
+  will-change: transform, opacity;
+}
+
+.js .hero-line {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.hero-image {
+  will-change: transform, opacity;
+}
+
+.js .hero-image {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+/* Scroll-down indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.55);
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.6s var(--cine-ease);
+}
+
+.scroll-indicator__mouse {
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-indicator__mouse::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 3px;
+  height: 6px;
+  margin-left: -1.5px;
+  background: var(--cine-accent);
+  border-radius: 2px;
+  animation: cine-scroll-dot 2s ease-in-out infinite;
+}
+
+@keyframes cine-scroll-dot {
+  0%, 20% { opacity: 1; transform: translateY(0); }
+  60%, 100% { opacity: 0; transform: translateY(10px); }
+}
+
+.scroll-indicator.is-hidden {
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------- */
+/* Section reveal                                              */
+/* ---------------------------------------------------------- */
+.reveal-section {
+  will-change: transform, opacity;
+}
+
+.js .reveal-section {
+  opacity: 0;
+  transform: translateY(48px);
+}
+
+.reveal-stagger > * {
+  will-change: transform, opacity;
+}
+
+.js .reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+/* ---------------------------------------------------------- */
+/* Split heading reveal                                         */
+/* ---------------------------------------------------------- */
+.split-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+}
+
+.split-line__inner {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.js .split-line__inner {
+  transform: translateY(110%);
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------- */
+/* Cards                                                        */
+/* ---------------------------------------------------------- */
+.project-card,
+.essay-card {
+  transform-origin: center;
+  transition: box-shadow 0.5s var(--cine-ease), border-color 0.5s var(--cine-ease);
+}
+
+.project-card:hover,
+.essay-card:hover {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(138, 180, 255, 0.18), 0 0 40px rgba(138, 180, 255, 0.12);
+  border-color: rgba(138, 180, 255, 0.25);
+}
+
+/* Badge / interest pill stagger */
+.js .badge-stagger .badge,
+.js .interest-pill {
+  opacity: 0;
+  transform: translateY(10px);
+  display: inline-block;
+}
+
+.badge-stagger .badge,
+.interest-pill {
+  will-change: transform, opacity;
+}
+
+/* ---------------------------------------------------------- */
+/* Reduced motion                                               */
+/* ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-line,
+  .js .hero-image,
+  .js .reveal-section,
+  .js .reveal-stagger > *,
+  .js .split-line__inner,
+  .js .badge-stagger .badge,
+  .js .interest-pill {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .scroll-indicator__mouse::before {
+    animation: none;
+  }
+
+  .project-card:hover,
+  .essay-card:hover {
+    transform: none;
+  }
+}

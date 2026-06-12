@@ -1,12 +1,12 @@
-<div style="background-color: var(--tf-projects-bg-color)" class="bg-gradient py-3" id="coursework">
+<div style="background-color: var(--tf-projects-bg-color)" class="bg-gradient py-3 reveal-section" id="coursework">
   <div class="container">
     <div class="row mb-3">
       <div class="col-md-6">
-        <h1 class="display-4 text-start">Skills and Modules</h1>
+        <h1 class="display-4 text-start split-heading">Skills and Modules</h1>
       </div>
     </div>
 
-    <div class="vstack gap-3">
+    <div class="vstack gap-3 reveal-stagger">
       {% assign project_pages = site.pages | where: "type", "project" | sort: "date" | reverse %}
       {% for page in project_pages %}
         {% unless page.draft %}

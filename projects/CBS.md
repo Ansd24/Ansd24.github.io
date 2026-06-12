@@ -25,13 +25,13 @@ summary: "Developed and evaluated a secure dual-network infrastructure consistin
     <div class="row g-3 mt-2">
       <div class="col-md-6">
         <figure class="text-center mb-0">
-          <img width="100%" src="../img/All/Dual network diagram.png" class="img-thumbnail rounded">
+          <img width="100%" src="../img/All/Dual network diagram.png" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Dual Network Diagram</figcaption>
         </figure>
       </div>
       <div class="col-md-6">
         <figure class="text-center mb-0">
-          <img width="100%" src="../img/All/IP.png" class="img-thumbnail rounded">
+          <img width="100%" src="../img/All/IP.png" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">IP Address</figcaption>
         </figure>
       </div>
@@ -43,11 +43,11 @@ summary: "Developed and evaluated a secure dual-network infrastructure consistin
 <div class="card shadow-sm mb-4">
   <div class="card-body p-4">
     <h4 class="mb-3" style="border-left: 4px solid #0d6efd; padding-left: 12px;">Security Verification and Packet Analysis</h4>
-    <p style="line-height: 1.9; text-align: justify;">Using the “test-netConnection” command in windows PowerShell to verify that the website uses port 443 which ensures it is a secure connection. </p>
+    <p style="line-height: 1.9; text-align: justify;">Using the â€œtest-netConnectionâ€ command in windows PowerShell to verify that the website uses port 443 which ensures it is a secure connection. </p>
     <div class="row g-3 mt-2">
       <div class="col-md-12">
         <figure class="text-center mb-0">
-          <img width="70%" src="../img/All/Test.png" class="img-thumbnail rounded">
+          <img width="70%" src="../img/All/Test.png" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Testing Connection</figcaption>
         </figure>
       </div>
@@ -63,13 +63,13 @@ summary: "Developed and evaluated a secure dual-network infrastructure consistin
     <div class="row g-3 mt-2">
       <div class="col-md-6">
         <figure class="text-center mb-0">
-          <img width="100%" src="../img/All/REM.jpg" class="img-thumbnail rounded">
+          <img width="100%" src="../img/All/REM.jpg" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Model for Risk Evaluation</figcaption>
         </figure>
       </div>
       <div class="col-md-6">
         <figure class="text-center mb-0">
-          <img width="100%" src="../img/All/Threat list.jpg" class="img-thumbnail rounded">
+          <img width="100%" src="../img/All/Threat list.jpg" class="img-thumbnail rounded" loading="lazy">
           <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Threat List</figcaption>
         </figure>
       </div>
