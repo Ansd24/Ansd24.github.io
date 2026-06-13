@@ -1,0 +1,100 @@
+<div style="background-color: var(--tf-projects-bg-color)" class="bg-gradient section-pad reveal-section" id="homelab">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h1 class="display-4 text-start split-heading">Projects &amp; Home Lab</h1>
+      </div>
+    </div>
+
+    <div>
+
+      <!-- Featured project
+      <div class="card mb-3 project-card featured-project-card">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+            <h3 class="card-title mb-0">AI-Powered SOC Assistant <span class="text-muted fw-normal fs-6">— Dissertation</span></h3>
+            <span class="status-badge status-in-progress">In Progress</span>
+          </div>
+          <p class="card-text lead">
+            Building a local AI cybersecurity assistant with a RAG pipeline and SOC dashboard interface.
+            The system uses a locally-hosted LLM to answer security queries grounded in real documentation,
+            with a chat-based UI built for analyst workflows.
+          </p>
+          <p class="badge-stagger mb-3">
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Python</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Flask</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Ollama</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">RAG</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">LLM</span>
+            <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Google Stitch</span>
+          </p>
+          <a href="#" class="btn btn-outline-light">View Project</a>
+        </div>
+      </div>
+      End of featured project -->
+
+      <!-- Bento grid -->
+      <div class="bento-grid reveal-stagger">
+
+        <div class="bento-tile-wrap bento-tile--hero">
+          <a href="{{ site.baseurl }}/projects/self-hosted-server.html" class="bento-tile">
+            <div class="bento-tile__placeholder">
+              <span>screenshot: Jellyfin dashboard or Tailscale device list</span>
+            </div>
+            <div class="bento-tile__scrim"></div>
+            <span class="status-badge status-completed bento-tile__status">Completed</span>
+            <div class="bento-tile__content">
+              <h3 class="bento-tile__title">Self-Hosted Media &amp; Remote Access Server</h3>
+              <p class="bento-tile__desc">Private media server on a repurposed OptiPlex, accessed securely via Tailscale</p>
+              <p class="bento-tile__tags badge-stagger">
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Docker</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Jellyfin</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Tailscale</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Ubuntu</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="bento-tile-wrap bento-tile--medium">
+          <a href="#" class="bento-tile">
+            <div class="bento-tile__placeholder">
+              <span>screenshot: Kali/Metasploitable VMs in virt-manager or network topology</span>
+            </div>
+            <div class="bento-tile__scrim"></div>
+            <span class="status-badge status-completed bento-tile__status">Completed</span>
+            <div class="bento-tile__content">
+              <h3 class="bento-tile__title">Isolated Pentest Lab</h3>
+              <p class="bento-tile__desc">Virtualised attack-and-detect lab with Kali and Metasploitable</p>
+              <p class="bento-tile__tags badge-stagger">
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">KVM/QEMU</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Kali</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Networking</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="bento-tile-wrap bento-tile--small">
+          <a href="#" class="bento-tile">
+            <div class="bento-tile__placeholder">
+              <span>screenshot: terminal showing generated syslog output</span>
+            </div>
+            <div class="bento-tile__scrim"></div>
+            <span class="status-badge status-completed bento-tile__status">Completed</span>
+            <div class="bento-tile__content">
+              <h3 class="bento-tile__title">Python Syslog Spoofer</h3>
+              <p class="bento-tile__desc">RFC-compliant syslog generator for testing log pipelines</p>
+              <p class="bento-tile__tags badge-stagger">
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Python</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Syslog</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Networking</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

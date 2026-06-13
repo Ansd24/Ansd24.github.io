@@ -1,51 +1,73 @@
-<div id="hero" style="background-color: var(--tf-page-bg-color)" class="bg-gradient hero-section">
+<section id="hero" style="background-color: var(--tf-page-bg-color)" class="bg-gradient hero-section">
   <div class="hero-glow" aria-hidden="true"></div>
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-4">
-        <img width="300px" src="{{ site.data.bio.basics.picture }}" class="d-block mx-auto rounded-circle hero-image">
+
+  <div class="hero-grid">
+    <div class="profile-card hero-line">
+      <svg class="profile-card__arc" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+        <path d="M8 150 A 142 142 0 0 1 150 8" stroke="var(--profile-teal)" stroke-width="2"
+              stroke-linecap="round" stroke-dasharray="3 9" />
+      </svg>
+
+      <div class="profile-card__photo-wrap">
+        <img src="{{ site.data.bio.basics.picture }}" class="profile-card__photo"
+             alt="{{ site.data.bio.basics.name }}" width="120" height="120">
       </div>
-      <div class="col-lg-8">
-        <h1 class="display-4 text-center hero-title hero-line">{{ site.data.bio.basics.name }}</h1>
-        <p class="lead text-center hero-line">{{ site.data.bio.basics.label }}</p>
-        <p class="lead hero-line">{{ site.data.bio.basics.summary }}</p>
-        <hr class="my-4 hero-line">
-        <p class="lead m-0 hero-line">
-          Interests:
-          {% for interest in site.data.bio.interests %}
-          <span class="interest-pill">{{ interest.name }}{% if forloop.last != true %},{% endif %}</span>
-          {% endfor %}
-        </p>
-        <hr class="my-4 hero-line">
-        <div class="row hero-line">
 
-          {% if site.data.bio.basics.website %}
-            {% capture url %}{{ site.data.bio.basics.website }}{% endcapture %}
-            <div class="col text-center">
-              {% include about/social.html url=url name='house' %}
-            </div>
-          {% endif %}
+      <h1 class="profile-card__name">{{ site.data.bio.basics.name }}</h1>
+      <p class="profile-card__subtitle">{{ site.data.bio.basics.label }}</p>
 
-          {% if site.data.bio.basics.email %}
-            {% capture url %}mailto:{{ site.data.bio.basics.email }}{% endcapture %}
-            <div class="col text-center">
-              {% include about/social.html url=url name='envelope' %}
-            </div>
-          {% endif %}
+      <p class="profile-card__tagline">
+        {% for interest in site.data.bio.interests %}{{ interest.name }}{% unless forloop.last %} &middot; {% endunless %}{% endfor %}
+      </p>
 
-          {% for profile in site.data.bio.basics.profiles %}
-            {% capture url %}{{ profile.url }}{% endcapture %}
-            {% capture name %}{{ profile.network | downcase }}{% endcapture %}
-            <div class="col text-center">
-              {% include about/social.html url=url name=name %}
-            </div>
-          {% endfor %}
+      <div class="profile-card__socials">
+        {% if site.data.bio.basics.website %}
+          {% capture url %}{{ site.data.bio.basics.website }}{% endcapture %}
+          {% include about/social.html url=url name='house' %}
+        {% endif %}
 
+        {% if site.data.bio.basics.email %}
+          {% capture url %}mailto:{{ site.data.bio.basics.email }}{% endcapture %}
+          {% include about/social.html url=url name='envelope' %}
+        {% endif %}
+
+        {% for profile in site.data.bio.basics.profiles %}
+          {% capture url %}{{ profile.url }}{% endcapture %}
+          {% capture name %}{{ profile.network | downcase }}{% endcapture %}
+          {% include about/social.html url=url name=name %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <h2 class="hero-headline hero-line">
+        <span class="hero-headline__bright">Cybersecurity</span>
+        <span class="hero-headline__dim">Student</span>
+      </h2>
+
+      <p class="hero-intro hero-line">
+        MSc Cybersecurity student focused on detection, threat hunting, and building security tooling.
+        I care about understanding how things work &mdash; and how they break.
+      </p>
+
+      <div class="hero-stats hero-line">
+        <div class="hero-stat">
+          <span class="hero-stat__number">4+</span>
+          <span class="hero-stat__label">Hands-on Projects</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat__number">SOC L1</span>
+          <span class="hero-stat__label">TryHackMe Path</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat__number">3</span>
+          <span class="hero-stat__label">Home Lab Builds</span>
         </div>
       </div>
     </div>
   </div>
+
   <div class="scroll-indicator" aria-hidden="true">
     <span class="scroll-indicator__mouse"></span>
   </div>
-</div>
+</section>

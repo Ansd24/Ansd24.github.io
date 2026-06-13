@@ -94,38 +94,18 @@
     });
   });
 
-  /* ---------- Hero entrance (staggered headline lines) ---------- */
+  /* ---------- Hero entrance (profile card) ----------
+     gsap.from animates FROM the hidden state TO the element's natural,
+     already-visible DOM state, so the card is never stranded invisible. */
   var heroLines = gsap.utils.toArray('.hero-line');
   if (heroLines.length) {
-    gsap.to(heroLines, {
-      opacity: 1,
-      y: 0,
+    gsap.from(heroLines, {
+      opacity: 0,
+      y: 40,
       duration: 1.1,
       ease: 'power3.out',
       stagger: 0.12,
       delay: 0.2,
-    });
-  }
-
-  var heroImage = document.querySelector('.hero-image');
-  if (heroImage) {
-    gsap.to(heroImage, {
-      opacity: 1,
-      scale: 1,
-      duration: 1.2,
-      ease: 'power3.out',
-      delay: 0.15,
-    });
-
-    gsap.to(heroImage, {
-      yPercent: -10,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
     });
   }
 
@@ -159,80 +139,111 @@
     });
   }
 
-  /* ---------- Section fade/translate on scroll-enter ---------- */
+  /* ---------- Section fade/translate on scroll-enter ----------
+     All reveals below use gsap.from(): they animate from a hidden state back
+     to the element's natural visible DOM, and `once: true` settles them there
+     permanently. If a trigger somehow never fires, the element stays at its
+     default (visible) CSS state — content is never dependent on JS to appear. */
   gsap.utils.toArray('.reveal-section').forEach(function (section) {
-    gsap.to(section, {
-      opacity: 1,
-      y: 0,
+    gsap.from(section, {
+      opacity: 0,
+      y: 48,
       duration: 1,
       ease: 'power3.out',
       scrollTrigger: {
         trigger: section,
         start: 'top 80%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
 
   /* ---------- Staggered children within a section ---------- */
-  gsap.utils.toArray('.reveal-stagger').forEach(function (group) {
-    gsap.to(group.children, {
-      opacity: 1,
-      y: 0,
+  gsap.utils.toArray('.reveal-stagger:not(.connect-bento)').forEach(function (group) {
+    gsap.from(group.children, {
+      opacity: 0,
+      y: 36,
       duration: 0.9,
       ease: 'power3.out',
       stagger: 0.12,
       scrollTrigger: {
         trigger: group,
         start: 'top 85%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
+  });
+
+  /* ---------- Connect bento: anchor tile first, link tiles stagger ----------
+     The anchor tile is the visual focal point, so it gets its own quick
+     scale+fade entrance. The surrounding link tiles then cascade in with a
+     tight 30-80ms stagger (per polish-stagger-children) just after it. */
+  gsap.utils.toArray('.connect-bento').forEach(function (grid) {
+    var anchor = grid.querySelector('.connect-tile--anchor');
+    var tiles = Array.prototype.filter.call(grid.children, function (el) {
+      return el !== anchor;
+    });
+
+    if (anchor) {
+      gsap.from(anchor, {
+        opacity: 0,
+        scale: 0.96,
+        duration: 0.5,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: grid,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+    }
+
+    if (tiles.length) {
+      gsap.from(tiles, {
+        opacity: 0,
+        y: 24,
+        duration: 0.45,
+        ease: 'power3.out',
+        stagger: 0.06,
+        delay: anchor ? 0.08 : 0,
+        scrollTrigger: {
+          trigger: grid,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+    }
   });
 
   /* ---------- Badges / interest pills stagger in ---------- */
   gsap.utils.toArray('.badge-stagger').forEach(function (group) {
     var items = group.querySelectorAll('.badge');
     if (!items.length) return;
-    gsap.to(items, {
-      opacity: 1,
-      y: 0,
+    gsap.from(items, {
+      opacity: 0,
+      y: 10,
       duration: 0.6,
       ease: 'power2.out',
       stagger: 0.06,
       scrollTrigger: {
         trigger: group,
         start: 'top 90%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
 
-  document.querySelectorAll('.interest-pill').forEach(function (pill, index) {
-    gsap.to(pill, {
-      opacity: 1,
-      y: 0,
+  var interestPills = document.querySelectorAll('.interest-pill');
+  if (interestPills.length) {
+    gsap.from(interestPills, {
+      opacity: 0,
+      y: 10,
       duration: 0.6,
       ease: 'power2.out',
-      delay: 0.6 + index * 0.06,
+      stagger: 0.06,
+      delay: 0.6,
     });
-  });
-
-  /* ---------- Card hover (GSAP-driven so it composes with the reveal transform) ---------- */
-  document.querySelectorAll('.project-card, .essay-card').forEach(function (card) {
-    var hoverTween = gsap.to(card, {
-      scale: 1.02,
-      duration: 0.5,
-      ease: 'power2.out',
-      paused: true,
-    });
-    card.addEventListener('mouseenter', function () {
-      hoverTween.play();
-    });
-    card.addEventListener('mouseleave', function () {
-      hoverTween.reverse();
-    });
-  });
+  }
 
   /* ---------- Section heading split-reveal ---------- */
   document.querySelectorAll('.split-heading').forEach(function (heading) {
@@ -243,19 +254,25 @@
       })
       .join(' ');
 
-    gsap.to(heading.querySelectorAll('.split-line__inner'), {
-      y: '0%',
-      opacity: 1,
+    gsap.from(heading.querySelectorAll('.split-line__inner'), {
+      yPercent: 110,
+      opacity: 0,
       duration: 0.8,
       ease: 'power3.out',
       stagger: 0.05,
       scrollTrigger: {
         trigger: heading,
         start: 'top 85%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
 
+  /* Recalculate trigger positions now, and again once everything (including
+     lazy-loaded images that shift layout) has finished loading. Stale trigger
+     positions were the root cause of elements never reaching full opacity. */
   ScrollTrigger.refresh();
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+  });
 })();
