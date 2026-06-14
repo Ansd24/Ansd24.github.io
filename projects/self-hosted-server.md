@@ -66,11 +66,11 @@ summary: "Repurposed a used Dell OptiPlex 3040 running Ubuntu as a dedicated hom
   </div>
 </div>
 
-<div class="card project-card mb-4" style="border: 1px solid var(--cine-accent); background: linear-gradient(135deg, var(--cine-accent-glow), rgba(170, 120, 255, 0.04)), var(--bs-card-bg);">
-  <div class="card-body p-4">
-    <p class="mb-2" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cine-accent);">Key Decision</p>
-    <h4 class="mb-3">Tailscale Over Port Forwarding</h4>
-    <p style="line-height: 1.9;">Port forwarding would have exposed the Jellyfin login page to the entire internet — visible to any port scanner, vulnerable to brute force, and requiring ongoing maintenance (firewall rules, dynamic DNS, SSL certificates). Tailscale creates a WireGuard-encrypted mesh network where only my signed-in devices can see the server. No ports opened, no public exposure, no attack surface. For someone studying cybersecurity, building the convenient but insecure version would have been the wrong call.</p>
+<div class="card project-card mb-4 key-decision-callout" style="border: 1px solid var(--cine-accent); background: linear-gradient(135deg, var(--cine-accent-glow), rgba(170, 120, 255, 0.04)), #1e1e1e; opacity: 1 !important; visibility: visible !important;">
+  <div class="card-body p-4" style="opacity: 1 !important; visibility: visible !important;">
+    <p class="mb-2 kd-label" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #a9c7ff !important; opacity: 1 !important; visibility: visible !important;">Key Decision</p>
+    <h4 class="mb-3" style="color: #ffffff !important; opacity: 1 !important; visibility: visible !important;">Tailscale Over Port Forwarding</h4>
+    <p style="line-height: 1.9; color: #ececf0 !important; opacity: 1 !important; visibility: visible !important;">Port forwarding would have exposed the Jellyfin login page to the entire internet — visible to any port scanner, vulnerable to brute force, and requiring ongoing maintenance (firewall rules, dynamic DNS, SSL certificates). Tailscale creates a WireGuard-encrypted mesh network where only my signed-in devices can see the server. No ports opened, no public exposure, no attack surface. For someone studying cybersecurity, building the convenient but insecure version would have been the wrong call.</p>
   </div>
 </div>
 
@@ -86,24 +86,20 @@ summary: "Repurposed a used Dell OptiPlex 3040 running Ubuntu as a dedicated hom
     <h4 class="mb-3" style="border-left: 4px solid var(--cine-accent); padding-left: 12px;">Screenshots</h4>
     <div class="row g-3">
       <div class="col-md-6">
-        <div class="text-center p-4" style="border: 1px dashed var(--bs-border-color); border-radius: 0.5rem; min-height: 140px;">
-          <p class="text-muted mb-0" style="font-size: 0.85rem;">[Screenshot placeholder]<br>Terminal output of <code>docker ps</code> showing the running Jellyfin and Immich containers</p>
-        </div>
+        <img src="{{ '/img/projects/docker-ps.png' | prepend: site.baseurl }}" alt="Terminal output of docker ps showing the running Jellyfin and Immich containers" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">
+        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem;">Terminal output of <code>docker ps</code> showing the running Jellyfin and Immich containers</p>
       </div>
       <div class="col-md-6">
-        <div class="text-center p-4" style="border: 1px dashed var(--bs-border-color); border-radius: 0.5rem; min-height: 140px;">
-          <p class="text-muted mb-0" style="font-size: 0.85rem;">[Screenshot placeholder]<br>Jellyfin dashboard / media library view</p>
-        </div>
+        <img src="{{ '/img/projects/jellyfin-dashboard.png' | prepend: site.baseurl }}" alt="Jellyfin dashboard / media library view" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">
+        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem;">Jellyfin dashboard / media library view</p>
       </div>
       <div class="col-md-6">
-        <div class="text-center p-4" style="border: 1px dashed var(--bs-border-color); border-radius: 0.5rem; min-height: 140px;">
-          <p class="text-muted mb-0" style="font-size: 0.85rem;">[Screenshot placeholder]<br>Tailscale device list showing the OptiPlex connected via its 100.x.x.x address</p>
-        </div>
+        <img src="{{ '/img/projects/tailscale-device-list.png' | prepend: site.baseurl }}" alt="Tailscale device list showing the OptiPlex connected via its 100.x.x.x address" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">
+        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem;">Tailscale device list showing the OptiPlex connected via its 100.x.x.x address</p>
       </div>
       <div class="col-md-6">
-        <div class="text-center p-4" style="border: 1px dashed var(--bs-border-color); border-radius: 0.5rem; min-height: 140px;">
-          <p class="text-muted mb-0" style="font-size: 0.85rem;">[Screenshot placeholder]<br>Terminal showing an SSH session into the OptiPlex</p>
-        </div>
+        <img src="{{ '/img/projects/htop-ssh-session.png' | prepend: site.baseurl }}" alt="htop running over an SSH session into the OptiPlex" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">
+        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem;">htop running over an SSH session into the OptiPlex</p>
       </div>
     </div>
   </div>

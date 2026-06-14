@@ -695,6 +695,45 @@ html.lenis {
   will-change: transform, opacity;
 }
 
+/* Project detail pages wrap the whole page body in a single tall
+   .reveal-section. Its "top 80%" scroll trigger sits almost immediately
+   below the navbar, so on long pages the entrance fade can be left stuck
+   at a low opacity instead of resolving to 1. Text content must never
+   depend on that animation to become visible, so opacity is pinned to 1
+   here (the slide-up transform animation still runs as a pure enhancement). */
+.project-content {
+  opacity: 1 !important;
+}
+
+/* ---------------------------------------------------------- */
+/* Key Decision callout (self-hosted server page)              */
+/* ---------------------------------------------------------- */
+/* Hard guarantee that every piece of text in this callout is fully
+   visible and high-contrast on the dark, blue-tinted card background.
+   Belt-and-suspenders: neutralises any inherited reveal/stagger opacity
+   animation or muted text-colour cascade. Colours are LIGHT on purpose —
+   the callout background is dark (#1e1e1e + faint blue glow), matching
+   every other .project-card on this page, not light. */
+.key-decision-callout,
+.key-decision-callout * {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.key-decision-callout .kd-label {
+  color: #a9c7ff !important;
+}
+
+.key-decision-callout h4 {
+  color: #ffffff !important;
+}
+
+.key-decision-callout p:not(.kd-label) {
+  color: #ececf0 !important;
+}
+
 /* ---------------------------------------------------------- */
 /* Split heading reveal                                         */
 /* ---------------------------------------------------------- */
