@@ -19,6 +19,138 @@
   updateNavbar();
   window.addEventListener('scroll', updateNavbar, { passive: true });
 
+  /* ---------- Live clock (nav) — runs regardless of motion prefs ---------- */
+  var navClock = document.querySelector('[data-nav-clock]');
+  if (navClock) {
+    var updateClock = function () {
+      var now = new Date();
+      var time = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/London',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(now);
+
+      // Europe/London is either GMT (UTC+0) or BST (UTC+1) depending on DST.
+      var utc = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+      var london = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' }));
+      var isBST = Math.round((london - utc) / 3600000) === 1;
+
+      navClock.textContent = 'LONDON · ' + time + ' ' + (isBST ? 'BST' : 'GMT');
+    };
+    updateClock();
+    setInterval(updateClock, 60000);
+  }
+
+  /* ---------- Mobile menu toggle ---------- */
+  var navToggle = document.querySelector('[data-nav-toggle]');
+  var navMobile = document.querySelector('[data-nav-mobile]');
+  if (navToggle && navMobile) {
+    var closeMobileMenu = function () {
+      navMobile.classList.remove('is-open');
+      navToggle.classList.remove('is-active');
+      navToggle.setAttribute('aria-expanded', 'false');
+    };
+    navToggle.addEventListener('click', function () {
+      var isOpen = navMobile.classList.toggle('is-open');
+      navToggle.classList.toggle('is-active', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navMobile.querySelectorAll('[data-nav-link]').forEach(function (link) {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  }
+
+  /* ---------- Active section highlighting in nav (IntersectionObserver) ----------
+     Runs regardless of motion prefs / GSAP availability so the active link
+     stays in sync even if the reveal animations below are skipped. */
+  (function () {
+    var navAnchors = Array.prototype.slice.call(document.querySelectorAll('[data-nav-link]'));
+    var trackedSections = [];
+
+    navAnchors.forEach(function (link) {
+      var url;
+      try {
+        url = new URL(link.href);
+      } catch (err) {
+        return;
+      }
+      if (url.pathname !== window.location.pathname || !url.hash) return;
+      var section = document.querySelector(url.hash);
+      if (!section) return;
+      trackedSections.push({ href: link.getAttribute('href'), section: section });
+    });
+
+    if (!trackedSections.length || !('IntersectionObserver' in window)) return;
+
+    var setActive = function (href) {
+      navAnchors.forEach(function (link) {
+        link.classList.toggle('is-active', link.getAttribute('href') === href);
+      });
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var match = trackedSections.find(function (s) {
+          return s.section === entry.target;
+        });
+        if (match) setActive(match.href);
+      });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+    trackedSections.forEach(function (s) {
+      observer.observe(s.section);
+    });
+  })();
+
+  /* ---------- Writing section category filters ----------
+     Fading uses GSAP (when available) so it doesn't fight the GSAP-driven
+     scroll-reveal animation on the same elements via competing CSS
+     transitions. Falls back to an instant display toggle otherwise. */
+  (function () {
+    var filterButtons = document.querySelectorAll('.writing-filter');
+    var posts = document.querySelectorAll('.writing-post');
+    if (!filterButtons.length || !posts.length) return;
+
+    var canAnimate = !prefersReduced && typeof gsap !== 'undefined';
+
+    filterButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var filter = button.getAttribute('data-writing-filter');
+
+        filterButtons.forEach(function (btn) {
+          btn.classList.toggle('is-active', btn === button);
+        });
+
+        posts.forEach(function (post) {
+          var isMatch = filter === 'all' || post.getAttribute('data-writing-category') === filter;
+
+          if (!canAnimate) {
+            post.style.display = isMatch ? '' : 'none';
+            return;
+          }
+
+          gsap.killTweensOf(post);
+          if (isMatch) {
+            post.style.display = '';
+            gsap.fromTo(post, { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' });
+          } else {
+            gsap.to(post, {
+              opacity: 0,
+              y: -8,
+              duration: 0.25,
+              ease: 'power2.out',
+              onComplete: function () {
+                post.style.display = 'none';
+              },
+            });
+          }
+        });
+      });
+    });
+  })();
+
   // If the user prefers reduced motion, or GSAP failed to load, the CSS
   // already keeps everything visible — stop here.
   if (prefersReduced || typeof gsap === 'undefined') {
@@ -45,7 +177,7 @@
   }
 
   /* ---------- Smooth scroll for in-page nav links ---------- */
-  document.querySelectorAll('a.nav-link[href*="#"]').forEach(function (link) {
+  document.querySelectorAll('[data-nav-link][href*="#"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
       var url;
       try {
@@ -67,46 +199,48 @@
     });
   });
 
-  /* ---------- Active section highlighting in nav ---------- */
-  var navLinks = navbar ? Array.prototype.slice.call(navbar.querySelectorAll('a.nav-link[href*="#"]')) : [];
-  navLinks.forEach(function (link) {
-    var url;
-    try {
-      url = new URL(link.href);
-    } catch (err) {
-      return;
-    }
-    if (url.pathname !== window.location.pathname || !url.hash) return;
-    var section = document.querySelector(url.hash);
-    if (!section) return;
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top center',
-      end: 'bottom center',
-      onToggle: function (self) {
-        if (self.isActive) {
-          navLinks.forEach(function (l) {
-            l.classList.remove('is-active');
-          });
-          link.classList.add('is-active');
-        }
-      },
-    });
-  });
-
-  /* ---------- Hero entrance (profile card) ----------
+  /* ---------- Hero entrance ----------
      gsap.from animates FROM the hidden state TO the element's natural,
-     already-visible DOM state, so the card is never stranded invisible. */
-  var heroLines = gsap.utils.toArray('.hero-line');
-  if (heroLines.length) {
-    gsap.from(heroLines, {
-      opacity: 0,
-      y: 40,
-      duration: 1.1,
-      ease: 'power3.out',
-      stagger: 0.12,
-      delay: 0.2,
-    });
+     already-visible DOM state, so content is never stranded invisible.
+     Sequence: status indicator -> headline words (staggered) -> tagline
+     -> photo + stats. */
+  var heroStatus = document.querySelector('.hero-status');
+  var heroWords = gsap.utils.toArray('.hero-headline__word');
+  var heroTagline = document.querySelector('.hero-tagline');
+  var heroPhoto = document.querySelector('.hero-photo-wrap');
+  var heroStats = document.querySelector('.hero-stats');
+
+  if (heroStatus || heroWords.length || heroTagline || heroPhoto || heroStats) {
+    var heroTl = gsap.timeline({ delay: 0.2 });
+
+    if (heroStatus) {
+      heroTl.from(heroStatus, { opacity: 0, y: 16, duration: 0.6, ease: 'power3.out' });
+    }
+
+    if (heroWords.length) {
+      heroTl.from(heroWords, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.12,
+      }, heroStatus ? '-=0.2' : 0);
+    }
+
+    if (heroTagline) {
+      heroTl.from(heroTagline, { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out' }, '-=0.3');
+    }
+
+    var heroPhotoAndStats = [heroPhoto, heroStats].filter(Boolean);
+    if (heroPhotoAndStats.length) {
+      heroTl.from(heroPhotoAndStats, {
+        opacity: 0,
+        y: 24,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.1,
+      }, '-=0.4');
+    }
   }
 
   /* ---------- Hero background parallax ---------- */

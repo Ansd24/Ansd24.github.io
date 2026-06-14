@@ -1,13 +1,38 @@
-<header class="navbar navbar-expand navbar-dark border-bottom site-navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ '/' | prepend: site.baseurl }}">{{ site.data.bio.basics.name }}</a>
-    <div class="ms-auto">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <a class="nav-link" href="{{ '/#homelab' | prepend: site.baseurl }}">Projects &amp; Home Lab</a>
-        <a class="nav-link" href="{{ '/#coursework' | prepend: site.baseurl }}">Skills and Modules</a>
-        <a class="nav-link" href="{{ '/#essays' | prepend: site.baseurl }}">Essays</a>
-        <a class="nav-link" href="{{ '/resume.html' | prepend: site.baseurl }}">Resume</a>
-      </ul>
+<header class="site-navbar">
+  <div class="nav-container">
+    <a class="nav-brand" href="{{ '/' | prepend: site.baseurl }}#hero">
+      <img class="nav-avatar" src="{{ site.data.bio.basics.picture }}" alt="" width="32" height="32">
+      <span class="nav-identity">
+        <span class="nav-name">{{ site.data.bio.basics.name }}</span>
+        <span class="nav-role"><span class="nav-role__sep" aria-hidden="true">&middot;</span>MSc Cybersecurity &middot; SOC</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Section navigation">
+      <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#hero">Home</a>
+      <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#homelab">Projects &amp; Home Lab</a>
+      <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#coursework">Skills &amp; Modules</a>
+      <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#writing">Writing</a>
+      <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#connect">Contact</a>
+    </nav>
+
+    <div class="nav-meta">
+      <span class="nav-clock" data-nav-clock aria-hidden="true">LONDON &middot; --:--</span>
+      <a class="nav-cta" href="{{ '/' | prepend: site.baseurl }}#connect">Get in touch &rarr;</a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-mobile-menu">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
     </div>
+  </div>
+
+  <div class="nav-mobile" id="nav-mobile-menu" data-nav-mobile>
+    <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#hero">Home</a>
+    <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#homelab">Projects &amp; Home Lab</a>
+    <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#coursework">Skills &amp; Modules</a>
+    <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#writing">Writing</a>
+    <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#connect">Contact</a>
+    <a class="nav-cta" href="{{ '/' | prepend: site.baseurl }}#connect">Get in touch &rarr;</a>
   </div>
 </header>
