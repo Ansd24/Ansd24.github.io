@@ -86,8 +86,8 @@ summary: "Repurposed a used Dell OptiPlex 3040 running Ubuntu as a dedicated hom
     <h4 class="mb-3" style="border-left: 4px solid var(--cine-accent); padding-left: 12px;">Screenshots</h4>
     <div class="row g-3">
       <div class="col-md-6">
-        <img src="{{ '/img/projects/docker-ps.png' | prepend: site.baseurl }}" alt="Terminal output of docker ps showing the running Jellyfin and Immich containers" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">
-        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem;">Terminal output of <code>docker ps</code> showing the running Jellyfin and Immich containers</p>
+        <img src="{{ '/img/projects/docker-ps.png' | prepend: site.baseurl }}" alt="Terminal output of docker ps showing the running Jellyfin container" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">
+        <p class="text-muted mt-2 mb-0" style="font-size: 0.85rem;">Terminal output of <code>docker ps</code> showing the running Jellyfin container</p>
       </div>
       <div class="col-md-6">
         <img src="{{ '/img/projects/jellyfin-dashboard.png' | prepend: site.baseurl }}" alt="Jellyfin dashboard / media library view" class="img-fluid" style="border: 1px solid var(--bs-border-color); border-radius: 0.5rem;">

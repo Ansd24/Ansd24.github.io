@@ -1,46 +1,62 @@
 <footer id="connect" style="background-color: var(--tf-footer-bg-color)" class="connect-section reveal-section">
   <div class="container">
+    {% comment %} Set to your CV file (e.g. '/pdfs/resume.pdf') once it exists —
+       the Download CV button and Resume tile activate automatically. {% endcomment %}
+    {% assign resume_pdf = '/pdfs/Ayaan-Sayyad-CV.pdf' %}
+
     <div class="connect-bento reveal-stagger">
 
+      <!-- Hero card -->
       <div class="connect-tile connect-tile--anchor">
-        <h2 class="connect-tile__heading split-heading">Let's Connect</h2>
-        <p class="connect-tile__tagline">Always happy to talk networking, security, or new projects &mdash; reach out below.</p>
+        <h2 class="connect-tile__heading split-heading">Happy to chat about roles, projects or ideas.</h2>
+        <div class="connect-hero__actions">
+          {% if resume_pdf != '' %}
+          <a href="{{ '/cv.html' | prepend: site.baseurl }}" class="connect-btn connect-btn--primary">
+            <svg class="connect-btn__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#file-earmark-text"/></svg>
+            View CV
+          </a>
+          {% else %}
+          <span class="connect-btn connect-btn--primary is-disabled" aria-disabled="true" title="CV coming soon">
+            <svg class="connect-btn__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#file-earmark-text"/></svg>
+            View CV
+          </span>
+          {% endif %}
+          <a href="mailto:{{ site.data.bio.basics.email }}" class="connect-btn connect-btn--outline">
+            <svg class="connect-btn__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#envelope"/></svg>
+            Email me
+          </a>
+        </div>
       </div>
 
+      <!-- Primary tile -->
+      <a href="https://www.linkedin.com/in/ayaan-sayyad-11291825a" target="_blank" rel="noopener" class="connect-tile connect-tile--linkedin connect-tile--primary">
+        <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#linkedin"/></svg>
+        <span class="connect-tile__label">LinkedIn</span>
+        <span class="connect-tile__sub">Connect</span>
+      </a>
+
+      <!-- Secondary row -->
       <a href="https://github.com/Ansd24" target="_blank" rel="noopener" class="connect-tile connect-tile--github">
         <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#github"/></svg>
         <span class="connect-tile__label">GitHub</span>
-        <span class="connect-tile__sub">@Ansd24</span>
+        <span class="connect-tile__sub">View repos</span>
       </a>
 
-      <a href="https://www.linkedin.com/in/ayaan-sayyad-11291825a" target="_blank" rel="noopener" class="connect-tile connect-tile--linkedin">
-        <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#linkedin"/></svg>
-        <span class="connect-tile__label">LinkedIn</span>
-        <span class="connect-tile__sub">Ayaan Sayyad</span>
-      </a>
-
-      <a href="#" class="connect-tile connect-tile--resume">
-        <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#file-earmark-text"/></svg>
-        <span class="connect-tile__label">Resume</span>
-        <span class="connect-tile__sub">View / download</span>
-      </a>
-
-      <a href="{{ '/#homelab' | prepend: site.baseurl }}" class="connect-tile connect-tile--projects">
-        <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#folder2-open"/></svg>
-        <span class="connect-tile__label">Projects &amp; Home Lab</span>
-        <span class="connect-tile__sub">See what I've been building</span>
-      </a>
-
-      <a href="mailto:{{ site.data.bio.basics.email }}" class="connect-tile connect-tile--email">
+      <button type="button" class="connect-tile connect-tile--email"
+              data-copy-email="{{ site.data.bio.basics.email }}" aria-label="Copy email address to clipboard">
         <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#envelope"/></svg>
         <span class="connect-tile__label">Email</span>
-        <span class="connect-tile__sub">{{ site.data.bio.basics.email }}</span>
-      </a>
+        <span class="connect-tile__sub connect-tile__sub--copy">
+          <span class="connect-email-text">{{ site.data.bio.basics.email }}</span>
+          <svg class="connect-copy-icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#clipboard"/></svg>
+          <span class="connect-copy-feedback" aria-live="polite">Copied</span>
+        </span>
+      </button>
 
       <a href="https://medium.com/@ayaansayyad05" target="_blank" rel="noopener" class="connect-tile connect-tile--medium">
         <svg class="connect-tile__icon" aria-hidden="true"><use xlink:href="{{ '/img/bootstrap-icons.svg' | prepend: site.baseurl }}#medium"/></svg>
         <span class="connect-tile__label">Medium</span>
-        <span class="connect-tile__sub">Writing</span>
+        <span class="connect-tile__sub">Read articles</span>
       </a>
 
     </div>

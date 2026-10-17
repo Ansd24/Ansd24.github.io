@@ -41,7 +41,6 @@
             <div class="bento-tile__placeholder" style="background-image: url('{{ '/img/projects/dark.jpg' | prepend: site.baseurl }}'); background-size: cover; background-position: center;">
             </div>
             <div class="bento-tile__scrim"></div>
-            <span class="status-badge status-completed bento-tile__status">Completed</span>
             <div class="bento-tile__content">
               <h3 class="bento-tile__title">Self-Hosted Media &amp; Remote Access Server</h3>
               <p class="bento-tile__desc">Private media server on a repurposed OptiPlex, accessed securely via Tailscale</p>
@@ -56,29 +55,10 @@
         </div>
 
         <div class="bento-tile-wrap bento-tile--medium">
-          <a href="#" class="bento-tile">
-            <div class="bento-tile__placeholder" style="background-image: url('{{ '/img/projects/k.jpg' | prepend: site.baseurl }}'); background-size: cover; background-position: center;">
-            </div>
-            <div class="bento-tile__scrim"></div>
-            <span class="status-badge status-completed bento-tile__status">Completed</span>
-            <div class="bento-tile__content">
-              <h3 class="bento-tile__title">Isolated Pentest Lab</h3>
-              <p class="bento-tile__desc">Virtualised attack-and-detect lab with Kali and Metasploitable</p>
-              <p class="bento-tile__tags badge-stagger">
-                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">KVM/QEMU</span>
-                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Kali</span>
-                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Networking</span>
-              </p>
-            </div>
-          </a>
-        </div>
-
-        <div class="bento-tile-wrap bento-tile--small">
-          <a href="#" class="bento-tile">
+          <a href="{{ site.baseurl }}/projects/syslog-spoofer.html" class="bento-tile">
             <div class="bento-tile__placeholder" style="background-image: url('{{ '/img/projects/grain.jpg' | prepend: site.baseurl }}'); background-size: cover; background-position: center;">
             </div>
             <div class="bento-tile__scrim"></div>
-            <span class="status-badge status-completed bento-tile__status">Completed</span>
             <div class="bento-tile__content">
               <h3 class="bento-tile__title">Python Syslog Spoofer</h3>
               <p class="bento-tile__desc">RFC-compliant syslog generator for testing log pipelines</p>
@@ -86,6 +66,22 @@
                 <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Python</span>
                 <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Syslog</span>
                 <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Networking</span>
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <div class="bento-tile-wrap bento-tile--small">
+          <a href="{{ site.baseurl }}/projects/other-projects.html" class="bento-tile">
+            <div class="bento-tile__placeholder" style="background-image: url('{{ '/img/projects/k.jpg' | prepend: site.baseurl }}'); background-size: cover; background-position: center;">
+            </div>
+            <div class="bento-tile__scrim"></div>
+            <div class="bento-tile__content">
+              <h3 class="bento-tile__title">Other Projects</h3>
+              <p class="bento-tile__desc">Smaller scripts and side projects</p>
+              <p class="bento-tile__tags badge-stagger">
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Python</span>
+                <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Scripts</span>
               </p>
             </div>
           </a>

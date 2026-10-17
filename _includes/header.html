@@ -1,12 +1,6 @@
 <header class="site-navbar">
   <div class="nav-container">
-    <a class="nav-brand" href="{{ '/' | prepend: site.baseurl }}#hero">
-      <img class="nav-avatar" src="{{ site.data.bio.basics.picture }}" alt="" width="32" height="32">
-      <span class="nav-identity">
-        <span class="nav-name">{{ site.data.bio.basics.name }}</span>
-        <span class="nav-role"><span class="nav-role__sep" aria-hidden="true">&middot;</span>MSc Cybersecurity &middot; SOC</span>
-      </span>
-    </a>
+    <div class="nav-spacer" aria-hidden="true"></div>
 
     <nav class="nav-links" aria-label="Section navigation">
       <a class="nav-link" data-nav-link href="{{ '/' | prepend: site.baseurl }}#hero">Home</a>
@@ -17,8 +11,6 @@
     </nav>
 
     <div class="nav-meta">
-      <span class="nav-clock" data-nav-clock aria-hidden="true">LONDON &middot; --:--</span>
-      <a class="nav-cta" href="{{ '/' | prepend: site.baseurl }}#connect">Get in touch &rarr;</a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-mobile-menu">
         <span class="nav-toggle__bar"></span>
         <span class="nav-toggle__bar"></span>

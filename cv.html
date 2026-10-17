@@ -1,0 +1,18 @@
+---
+title: CV
+layout: home
+---
+
+<div style="background-color: var(--tf-page-bg-color)" class="bg-gradient py-4">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+      <a href="{{ site.baseurl }}/#connect" class="btn btn-outline-light btn-sm">&larr; Back</a>
+      <a href="{{ '/pdfs/Ayaan-Sayyad-CV.pdf' | prepend: site.baseurl }}" download class="btn btn-outline-light">Download CV</a>
+    </div>
+
+    <object data="{{ '/pdfs/Ayaan-Sayyad-CV.pdf' | prepend: site.baseurl }}#toolbar=0" type="application/pdf" style="width:100%; height:85vh; border:1px solid var(--bs-border-color); border-radius:0.5rem;">
+      <p class="text-center py-5">Your browser can't show the PDF here.
+        <a href="{{ '/pdfs/Ayaan-Sayyad-CV.pdf' | prepend: site.baseurl }}">Open it directly</a> or use the Download button above.</p>
+    </object>
+  </div>
+</div>

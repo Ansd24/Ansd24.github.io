@@ -4,7 +4,6 @@
     "label": "Master's Student",
     "picture": "https://avatars.githubusercontent.com/u/166594025?s=400&u=d086731c9aab82cc67a6e6782856a5d5f77ce253&v=4",
     "email": "ayaansayyad05@gmail.com",
-    "phone": "+44 ",
     "website": "https://Ansd24.github.io",
     "summary": "",
     "location": { "address": "", "postalCode": "", "city": "London", "countryCode": "United Kingdom", "region": "Europe" },
@@ -23,11 +22,11 @@
   "skills": [
     {
       "name": "Languages and Frameworks",
-      "keywords": [ "Python", "" ]
+      "keywords": [ "Python" ]
     },
     {
       "name": "Toolsets/OS",
-      "keywords": [  "Ubuntu", "Git/GitHub", "" ]
+      "keywords": [ "Ubuntu", "Git/GitHub" ]
     }
   ],
   "education": [
@@ -37,75 +36,12 @@
       "studyType": "MSc.",
       "startDate": "September, 2025",
       "endDate": "Present",
-      "courses": [ 
+      "courses": [
       ]
     }
   ],
-  "work": [
-    {
-      "company": "",
-      "position": "",
-      "website": "",
-      "startDate": "",
-      "endDate": "",
-      "summary": "",
-      "highlights": [
-        ""
-      ]
-    },
-    {
-      "company": "",
-      "position": "",
-      "website": "",
-      "startDate": "",
-      "endDate": "",
-      "summary": "",
-      "highlights": [
-        ""
-      ]
-    }
-  ],
-  "volunteer": [
-    {
-      "organization": "",
-      "website": "",
-      "position": "",
-      "startDate": "",
-      "endDate": "",
-      "summary": "",
-      "highlights": [
-        ""
-      ]
-    },
-    {
-      "organization": "",
-      "website": "",
-      "position": "",
-      "startDate": "",
-      "endDate": "",
-      "summary": "",
-      "highlights": [
-        ""
-      ]
-    }
-  ],
-  "awards": [
-    {
-      "title": "",
-      "date": "",
-      "awarder": "",
-      "summary": ""
-    },
-    {
-      "title": "",
-      "date": "",
-      "awarder": "",
-      "summary": ""
-    }
-  ],
-  "references": [
-    {
-      "name": ""
-    }
-  ]
+  "work": [],
+  "volunteer": [],
+  "awards": [],
+  "references": []
 }

@@ -57,11 +57,11 @@ summary: "Designed and simulated a multi-office enterprise network in Tetcos Net
     <p style="line-height: 1.9; max-width: 80%; text-align: justify;">Analysed the behaviour and performance of the simulated network under multiple scenarios. This involved generating graphs, collecting simulation statistics, forming hypotheses, and comparing expected outcomes against actual results. The task required identifying congestion points, evaluating traffic behaviour, and explaining how network conditions affected overall performance.</p>
     <div class="d-flex gap-3 mt-3">
       <figure class="text-center w-50">
-        <img width="100%" src="../img/micromouse/npa.png" class="img-thumbnail rounded" loading="lazy">
+        <img width="100%" src="../img/micromouse/NPA.png" class="img-thumbnail rounded" loading="lazy">
         <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Performance Analysis 1</figcaption>
       </figure>
       <figure class="text-center w-50">
-        <img width="100%" src="../img/micromouse/npa2.png" class="img-thumbnail rounded" loading="lazy">
+        <img width="100%" src="../img/micromouse/NPA2.png" class="img-thumbnail rounded" loading="lazy">
         <figcaption class="text-muted fst-italic mt-1" style="font-size:0.85rem">Performance Analysis 2</figcaption>
       </figure>
     </div>

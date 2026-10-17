@@ -1,7 +1,9 @@
 /*
- * Cinematic interactions: Lenis smooth scroll + GSAP/ScrollTrigger reveals.
- * Loaded at the end of <body>, after GSAP/ScrollTrigger/Lenis CDN scripts,
- * so the DOM is already parsed and those globals are available.
+ * Site interactions: nav behaviour, writing filters, clipboard copy, and two
+ * scroll-tied effects (hero parallax, scroll-cue visibility) via GSAP/
+ * ScrollTrigger + Lenis smooth scroll. Loaded at the end of <body>, after
+ * the GSAP/ScrollTrigger/Lenis CDN scripts, so the DOM is already parsed
+ * and those globals are available.
  */
 (function () {
   var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,29 +20,6 @@
   }
   updateNavbar();
   window.addEventListener('scroll', updateNavbar, { passive: true });
-
-  /* ---------- Live clock (nav) — runs regardless of motion prefs ---------- */
-  var navClock = document.querySelector('[data-nav-clock]');
-  if (navClock) {
-    var updateClock = function () {
-      var now = new Date();
-      var time = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Europe/London',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }).format(now);
-
-      // Europe/London is either GMT (UTC+0) or BST (UTC+1) depending on DST.
-      var utc = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
-      var london = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' }));
-      var isBST = Math.round((london - utc) / 3600000) === 1;
-
-      navClock.textContent = 'LONDON · ' + time + ' ' + (isBST ? 'BST' : 'GMT');
-    };
-    updateClock();
-    setInterval(updateClock, 60000);
-  }
 
   /* ---------- Mobile menu toggle ---------- */
   var navToggle = document.querySelector('[data-nav-toggle]');
@@ -109,10 +88,38 @@
      scroll-reveal animation on the same elements via competing CSS
      transitions. Falls back to an instant display toggle otherwise. */
   (function () {
-    var filterButtons = document.querySelectorAll('.writing-filter');
+    var filterContainer = document.querySelector('.writing-filters');
     var posts = document.querySelectorAll('.writing-post');
-    if (!filterButtons.length || !posts.length) return;
+    if (!filterContainer || !posts.length) return;
 
+    /* Build one button per category that actually has at least one post,
+       so a filter can never produce an empty result. The button label is
+       taken from the post's visible category text; the filter value from
+       its data-writing-category attribute. */
+    var seenCategories = {};
+    posts.forEach(function (post) {
+      var category = post.getAttribute('data-writing-category');
+      if (!category || seenCategories[category]) return;
+      var labelEl = post.querySelector('.writing-post__category');
+      var label = labelEl && labelEl.textContent.trim();
+      if (!label) {
+        label = category.split('-').map(function (word) {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join(' ');
+      }
+      seenCategories[category] = label;
+    });
+
+    Object.keys(seenCategories).forEach(function (category) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'writing-filter';
+      button.setAttribute('data-writing-filter', category);
+      button.textContent = seenCategories[category];
+      filterContainer.appendChild(button);
+    });
+
+    var filterButtons = filterContainer.querySelectorAll('.writing-filter');
     var canAnimate = !prefersReduced && typeof gsap !== 'undefined';
 
     filterButtons.forEach(function (button) {
@@ -151,6 +158,49 @@
     });
   })();
 
+  /* ---------- Copy email to clipboard (connect section) ---------- */
+  (function () {
+    var copyButtons = document.querySelectorAll('[data-copy-email]');
+    if (!copyButtons.length) return;
+
+    copyButtons.forEach(function (button) {
+      var email = button.getAttribute('data-copy-email');
+      var resetTimer;
+
+      var showCopied = function () {
+        button.classList.add('is-copied');
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(function () {
+          button.classList.remove('is-copied');
+        }, 1600);
+      };
+
+      // Fallback for browsers without the async clipboard API (or non-secure
+      // contexts, where navigator.clipboard is undefined).
+      var fallbackCopy = function () {
+        var textarea = document.createElement('textarea');
+        textarea.value = email;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          if (document.execCommand('copy')) showCopied();
+        } catch (err) { /* clipboard unavailable — leave silently */ }
+        document.body.removeChild(textarea);
+      };
+
+      button.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(showCopied, fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+      });
+    });
+  })();
+
   // If the user prefers reduced motion, or GSAP failed to load, the CSS
   // already keeps everything visible — stop here.
   if (prefersReduced || typeof gsap === 'undefined') {
@@ -176,6 +226,44 @@
     gsap.ticker.lagSmoothing(0);
   }
 
+  /* ---------- Back-button scroll restoration ----------
+     Lenis and the reveal animations change page height after load, so the
+     browser's own restore lands in the wrong place (usually the footer).
+     Save the position on leave and put it back once layout has settled. */
+  (function () {
+    var key = 'scrollY:' + window.location.pathname;
+    var saved = null;
+    try {
+      saved = sessionStorage.getItem(key);
+      history.scrollRestoration = 'manual';
+    } catch (err) { /* storage or API unavailable — leave default behaviour */ }
+
+    function save() {
+      try { sessionStorage.setItem(key, String(window.scrollY)); } catch (err) {}
+    }
+    window.addEventListener('pagehide', save);
+
+    function jump(y) {
+      if (lenis) {
+        lenis.scrollTo(y, { immediate: true, force: true });
+      } else {
+        window.scrollTo(0, y);
+      }
+    }
+
+    // Only restore on back/forward or reload, never on a fresh link visit.
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var isHistoryNav = nav && (nav.type === 'back_forward' || nav.type === 'reload');
+    if (saved !== null && isHistoryNav && !window.location.hash) {
+      var y = parseFloat(saved) || 0;
+      jump(y);
+      window.addEventListener('load', function () {
+        ScrollTrigger.refresh();
+        jump(y);
+      });
+    }
+  })();
+
   /* ---------- Smooth scroll for in-page nav links ---------- */
   document.querySelectorAll('[data-nav-link][href*="#"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
@@ -198,50 +286,6 @@
       }
     });
   });
-
-  /* ---------- Hero entrance ----------
-     gsap.from animates FROM the hidden state TO the element's natural,
-     already-visible DOM state, so content is never stranded invisible.
-     Sequence: status indicator -> headline words (staggered) -> tagline
-     -> photo + stats. */
-  var heroStatus = document.querySelector('.hero-status');
-  var heroWords = gsap.utils.toArray('.hero-headline__word');
-  var heroTagline = document.querySelector('.hero-tagline');
-  var heroPhoto = document.querySelector('.hero-photo-wrap');
-  var heroStats = document.querySelector('.hero-stats');
-
-  if (heroStatus || heroWords.length || heroTagline || heroPhoto || heroStats) {
-    var heroTl = gsap.timeline({ delay: 0.2 });
-
-    if (heroStatus) {
-      heroTl.from(heroStatus, { opacity: 0, y: 16, duration: 0.6, ease: 'power3.out' });
-    }
-
-    if (heroWords.length) {
-      heroTl.from(heroWords, {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.12,
-      }, heroStatus ? '-=0.2' : 0);
-    }
-
-    if (heroTagline) {
-      heroTl.from(heroTagline, { opacity: 0, y: 24, duration: 0.7, ease: 'power3.out' }, '-=0.3');
-    }
-
-    var heroPhotoAndStats = [heroPhoto, heroStats].filter(Boolean);
-    if (heroPhotoAndStats.length) {
-      heroTl.from(heroPhotoAndStats, {
-        opacity: 0,
-        y: 24,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.1,
-      }, '-=0.4');
-    }
-  }
 
   /* ---------- Hero background parallax ---------- */
   var heroGlow = document.querySelector('.hero-glow');
@@ -272,135 +316,6 @@
       },
     });
   }
-
-  /* ---------- Section fade/translate on scroll-enter ----------
-     All reveals below use gsap.from(): they animate from a hidden state back
-     to the element's natural visible DOM, and `once: true` settles them there
-     permanently. If a trigger somehow never fires, the element stays at its
-     default (visible) CSS state — content is never dependent on JS to appear. */
-  gsap.utils.toArray('.reveal-section').forEach(function (section) {
-    gsap.from(section, {
-      opacity: 0,
-      y: 48,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        once: true,
-      },
-    });
-  });
-
-  /* ---------- Staggered children within a section ---------- */
-  gsap.utils.toArray('.reveal-stagger:not(.connect-bento)').forEach(function (group) {
-    gsap.from(group.children, {
-      opacity: 0,
-      y: 36,
-      duration: 0.9,
-      ease: 'power3.out',
-      stagger: 0.12,
-      scrollTrigger: {
-        trigger: group,
-        start: 'top 85%',
-        once: true,
-      },
-    });
-  });
-
-  /* ---------- Connect bento: anchor tile first, link tiles stagger ----------
-     The anchor tile is the visual focal point, so it gets its own quick
-     scale+fade entrance. The surrounding link tiles then cascade in with a
-     tight 30-80ms stagger (per polish-stagger-children) just after it. */
-  gsap.utils.toArray('.connect-bento').forEach(function (grid) {
-    var anchor = grid.querySelector('.connect-tile--anchor');
-    var tiles = Array.prototype.filter.call(grid.children, function (el) {
-      return el !== anchor;
-    });
-
-    if (anchor) {
-      gsap.from(anchor, {
-        opacity: 0,
-        scale: 0.96,
-        duration: 0.5,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: grid,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-    }
-
-    if (tiles.length) {
-      gsap.from(tiles, {
-        opacity: 0,
-        y: 24,
-        duration: 0.45,
-        ease: 'power3.out',
-        stagger: 0.06,
-        delay: anchor ? 0.08 : 0,
-        scrollTrigger: {
-          trigger: grid,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-    }
-  });
-
-  /* ---------- Badges / interest pills stagger in ---------- */
-  gsap.utils.toArray('.badge-stagger').forEach(function (group) {
-    var items = group.querySelectorAll('.badge');
-    if (!items.length) return;
-    gsap.from(items, {
-      opacity: 0,
-      y: 10,
-      duration: 0.6,
-      ease: 'power2.out',
-      stagger: 0.06,
-      scrollTrigger: {
-        trigger: group,
-        start: 'top 90%',
-        once: true,
-      },
-    });
-  });
-
-  var interestPills = document.querySelectorAll('.interest-pill');
-  if (interestPills.length) {
-    gsap.from(interestPills, {
-      opacity: 0,
-      y: 10,
-      duration: 0.6,
-      ease: 'power2.out',
-      stagger: 0.06,
-      delay: 0.6,
-    });
-  }
-
-  /* ---------- Section heading split-reveal ---------- */
-  document.querySelectorAll('.split-heading').forEach(function (heading) {
-    var words = heading.textContent.trim().split(/\s+/);
-    heading.innerHTML = words
-      .map(function (word) {
-        return '<span class="split-line"><span class="split-line__inner">' + word + '</span></span>';
-      })
-      .join(' ');
-
-    gsap.from(heading.querySelectorAll('.split-line__inner'), {
-      yPercent: 110,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.05,
-      scrollTrigger: {
-        trigger: heading,
-        start: 'top 85%',
-        once: true,
-      },
-    });
-  });
 
   /* Recalculate trigger positions now, and again once everything (including
      lazy-loaded images that shift layout) has finished loading. Stale trigger
