@@ -5,6 +5,7 @@ image: img/as/cover.png
 title: "Audit and Security"
 date: Sem 2
 published: true
+order: 5
 labels:
   - Gap analysis
   - ISO 27007

@@ -5,6 +5,7 @@ image: img/All/risks.png
 title: "Managing IT and Security  Risks"
 date: Sem 1
 published: true
+order: 4
 labels:
   - NIST Framework
   - PCI DSS

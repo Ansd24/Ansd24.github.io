@@ -5,6 +5,7 @@ image: img/sas/cover.png
 title: "System Administration and Security"
 date: Sem 2
 published: true
+order: 3
 labels:
   - CentOS
   - Linux 

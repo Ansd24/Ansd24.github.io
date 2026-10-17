@@ -5,6 +5,7 @@ image: img/cbs/cover.png
 title: "Cybersecurity"
 date: Sem 1
 published: true
+order: 2
 labels:
   - Wireshark
   - Risk Assessment
