@@ -30,6 +30,19 @@ summary: "Smaller scripts and side projects built to strengthen my programming f
 </div>
 
 <div class="card project-card mb-4">
+  <div class="card-body p-4">
+    <h4 class="mb-3" style="border-left: 4px solid var(--cine-accent); padding-left: 12px;">AutoHotkey Remaps</h4>
+    <p style="line-height: 1.9;">An AutoHotkey v2 script for Windows that remaps the Copilot key to Right Ctrl and adds keyboard shortcuts for line navigation: jump to the start or end of a line, select to either end, and delete from the cursor to either end of the line. Because AltGr sends Ctrl+Alt on Windows, the shortcuts work with AltGr too.</p>
+    <p class="badge-stagger mb-3">
+      <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">AutoHotkey v2</span>
+      <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Windows</span>
+      <span style="background-color: var(--tf-pill-bg)" class="badge rounded-pill">Automation</span>
+    </p>
+    <a href="https://github.com/Ansd24/AutoHotkey-Scripts" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-sm">View on GitHub &rarr;</a>
+  </div>
+</div>
+
+<div class="card project-card mb-4">
   <div class="card-body p-4 text-center">
     <p class="mb-2" style="line-height: 1.9;">More scripts and projects live in my Python repository.</p>
     <a href="https://github.com/Ansd24/Python" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light">Browse the Repo on GitHub &rarr;</a>
